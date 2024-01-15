@@ -2,11 +2,12 @@ import { FC } from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 
 interface Props {
-  title: string;
+  title?: string;
   onPress?: () => void;
+  icon?: any
 }
 
-export const PrimaryButtont: FC<Props> = ( { title, onPress } ) => {
+export const PrimaryButtont: FC<Props> = ( { title, onPress, icon } ) => {
   return(
     <View style={styles.buttonOuterContainer}>
       <Pressable 
@@ -18,7 +19,17 @@ export const PrimaryButtont: FC<Props> = ( { title, onPress } ) => {
         }
 
       >
-        <Text style={styles.buttonText}>{title}</Text>
+        {title && (
+        <Text style={styles.buttonText}>
+          {title}
+          </Text>)
+        }
+        
+        {icon && (
+          <View style={{justifyContent: 'center', alignItems: 'center'}}>
+            {icon}
+          </View>)
+        }
       </Pressable>
     </View>
   )
