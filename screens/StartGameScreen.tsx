@@ -1,8 +1,12 @@
 import { TextInput, View, StyleSheet, TextInputChangeEventData, NativeSyntheticEvent, Alert} from "react-native"
 import { PrimaryButtont } from "../UI/PrimaryButton"
-import { useState } from "react"
+import { FC, useState } from "react"
 
-export const StartGameScreen = () => {
+interface Props {
+  onPickNumber: (pickedNumber: number) => void 
+}
+
+export const StartGameScreen:FC<Props> = ({ onPickNumber }) => {
   const [enteredNumber, setEnteredNumber] = useState<any>('')
   const numberInputHandler = (enteredText: any) => {
     console.log(enteredNumber)
@@ -23,6 +27,8 @@ export const StartGameScreen = () => {
         [{text: 'Okay', style: 'destructive', onPress: resetInputHnadler}])
       return;
     }
+
+    onPickNumber(chosenNumber)
   }
 
   return (
