@@ -1,4 +1,4 @@
-import { TextInput, View, StyleSheet, TextInputChangeEventData, NativeSyntheticEvent, Alert} from "react-native"
+import { TextInput, View, StyleSheet, Text, TextInputChangeEventData, NativeSyntheticEvent, Alert} from "react-native"
 import { PrimaryButtont } from "../UI/PrimaryButton"
 import { FC, useState } from "react"
 
@@ -7,9 +7,9 @@ interface Props {
 }
 
 export const StartGameScreen:FC<Props> = ({ onPickNumber }) => {
-  const [enteredNumber, setEnteredNumber] = useState<any>('')
-  const numberInputHandler = (enteredText: any) => {
-    console.log(enteredNumber)
+  const [enteredNumber, setEnteredNumber] = useState<string>('')
+
+  const numberInputHandler = (enteredText: string) => {
     setEnteredNumber(enteredText);
   }
 
@@ -32,39 +32,51 @@ export const StartGameScreen:FC<Props> = ({ onPickNumber }) => {
   }
 
   return (
-    <View style={styles.inputContainer} >
-      <TextInput 
-        style={styles.numberInput} 
-        maxLength={2} 
-        keyboardType="number-pad" 
-        autoCapitalize="none" 
-        autoCorrect={false}
-        value={enteredNumber} 
-        onChangeText={numberInputHandler}
-      />
-      <View style={styles.buttonsContainer}>
-        <View style={styles.buttonContainer}>
-          <PrimaryButtont 
-            title={'Reset'}
-            onPress={resetInputHnadler}
-          />        
-        </View>
+    <View style={styles.container}>
+       <View style={styles.inputContainer} >
+        <View style={{padding: 16}}>
+            <Text style={{fontSize:24, textAlign: 'center', color: '#fff'}}>
+              Please enter your number
+            </Text> 
+          </View>
 
-        <View style={styles.buttonContainer}>
-          <PrimaryButtont 
-            title={'Confirm'}
-            onPress={confirmInputHandler}
-          /> 
-        </View>
-      </View>       
+        <TextInput 
+          style={styles.numberInput} 
+          maxLength={2} 
+          keyboardType="number-pad" 
+          autoCapitalize="none" 
+          autoCorrect={false}
+          value={enteredNumber} 
+          onChangeText={numberInputHandler}
+        />
+        <View style={styles.buttonsContainer}>
+          <View style={styles.buttonContainer}>
+            <PrimaryButtont 
+              title={'Reset'}
+              onPress={resetInputHnadler}
+            />        
+          </View>
+
+          <View style={styles.buttonContainer}>
+            <PrimaryButtont 
+              title={'Confirm'}
+              onPress={confirmInputHandler}
+            /> 
+          </View>
+        </View>       
+      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   inputContainer: {
     alignItems: 'center',
-    marginTop: 100,
     marginHorizontal: 24,
     padding: 16,
     backgroundColor: '#72063c',
@@ -80,11 +92,11 @@ const styles = StyleSheet.create({
     color: '#ddb52f',
     borderBottomWidth: 2,
     borderBottomColor: '#ddb52f',
-    marginVertical: 8
+    marginVertical: 8,
+    marginBottom: 36
   },
   buttonsContainer: {
     flexDirection: 'row',
-    // width: '100%'
   },
   buttonContainer: {
     flex: 1

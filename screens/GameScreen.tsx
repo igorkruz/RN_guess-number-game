@@ -21,17 +21,24 @@ interface Props {
 
 let minBoundary = 1;
 let maxBoundary = 100;
+
+
 export const GameScreen:FC<Props> = ({ userNumber, onGameOver }) => {
   if (!userNumber) {
-    return
+    return;
   }
 
   const initialGuess = generateRandomNumber(1, 100, userNumber);
-  const [currentGuess, setCurrentGuess] = useState(initialGuess)
+  const [currentGuess, setCurrentGuess] = useState(initialGuess);
 
   const nextGuessHandler = (dirrection: 'lower' | 'greater') => {
-    if ((dirrection === 'lower' && currentGuess < userNumber) || (dirrection === 'greater' && currentGuess > userNumber)) {
-      Alert.alert('Dont lie!', 'You know that this is wrong...', [{text: 'Sorry', style: 'cancel'}])
+    if ((dirrection === 'lower' && currentGuess < userNumber) 
+      || (dirrection === 'greater' && currentGuess > userNumber)) {
+      Alert.alert(
+        'Dont lie!', 
+        'You know that this is wrong...', 
+        [{text: 'Sorry', style: 'cancel'}]
+      );
       return;
     }
 
@@ -44,14 +51,19 @@ export const GameScreen:FC<Props> = ({ userNumber, onGameOver }) => {
     }
 
     const newRnadomNumber = generateRandomNumber(minBoundary, maxBoundary, currentGuess);
-    setCurrentGuess(newRnadomNumber)
+    setCurrentGuess(newRnadomNumber);
   }
 
   useEffect(() => {
     if (userNumber === currentGuess) {
-      onGameOver()
+      onGameOver();
     }
-  }, [onGameOver, userNumber, currentGuess])
+  }, [onGameOver, userNumber, currentGuess]);
+
+  useEffect(() => {
+    minBoundary = 1;
+    maxBoundary = 100;
+  }, []);
 
   return (
     <View style={styles.screen}>
@@ -59,28 +71,64 @@ export const GameScreen:FC<Props> = ({ userNumber, onGameOver }) => {
         Opponents Guess
       </Text>
 
-      <Text style={styles.title}>
-        {currentGuess}
-      </Text>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>
+          {currentGuess}
+        </Text>
+      </View>
 
-      <View>
-        <PrimaryButtont icon={<Ionicons name="md-remove" size={24} color='#fff'/>} onPress={() => nextGuessHandler('lower')}/>
-        <PrimaryButtont icon={<Ionicons name="md-add" size={24} color='#fff'/>} onPress={() => nextGuessHandler('greater')}/>
+      <View style={styles.buttonContainer}>
+        <View style={styles.buttonContent}>
+          <PrimaryButtont 
+            icon={
+              <Ionicons 
+                name="md-remove" 
+                size={24} 
+                color='#fff'
+              />
+            } 
+            onPress={() => nextGuessHandler('lower')}
+          />
+        </View>
+
+        <View style={styles.buttonContent}>
+          <PrimaryButtont 
+            icon={
+              <Ionicons 
+                name="md-add" 
+                size={24} 
+                color='#fff'
+              />
+            } 
+            onPress={() => nextGuessHandler('greater')}
+          />
+        </View>
       </View>
     </View>
-
   )
 }
 
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+    justifyContent: 'center',
+    gap:24,
     padding: 12
+  },
+  titleContainer: {
+    marginBottom: 24
   },
   title: {
     fontSize: 24,
     fontWeight: '800',
     textAlign: 'center',
-    color: '#ddb52f'
+    color: '#ddb52f',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  buttonContent: {
+    flex: 1
   }
 })
