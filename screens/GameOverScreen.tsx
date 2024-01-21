@@ -1,25 +1,25 @@
 import { FC } from "react"
-import { View, Text, Pressable } from "react-native"
+import { View, Text, StyleSheet } from "react-native"
 import { PrimaryButtont } from "../UI/PrimaryButton";
 
 interface Props {
   handleRestartGame: () => void;
-  userNumber: number | null
+  userNumber: number | null;
 }
 
 export const GameOverScreen:FC<Props> = ({ handleRestartGame, userNumber }) => {
   return (
-    <View style={{flex :1, justifyContent: 'center', alignItems: 'center'}}>
-      <View style={{alignItems: 'center'}}>
-        <Text style={{color: '#fff', fontSize: 24}}>
+    <View style={styles.container}>
+      <View style={styles.textContainer}>
+        <Text style={styles.title}>
           Game over
         </Text>
 
-        <Text style={{color: '#fff'}}>
+        <Text style={styles.subTitle}>
           Guessed number was
         </Text>
 
-        <View style={{backgroundColor: '#72065c', paddingHorizontal: 24, paddingVertical: 12, marginTop: 16, borderRadius: 16}}>
+        <View style={styles.userNumber}>
           <Text>
             {userNumber}
           </Text>
@@ -31,3 +31,27 @@ export const GameOverScreen:FC<Props> = ({ handleRestartGame, userNumber }) => {
   )
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex :1, 
+    justifyContent: 'center', 
+    alignItems: 'center'
+  },
+  textContainer: {
+    alignItems: 'center'
+  },
+  title: {
+    color: '#fff', 
+    fontSize: 24
+  },
+  subTitle: {
+    color: '#fff'
+  },
+  userNumber: {
+    backgroundColor: '#72065c', 
+    paddingHorizontal: 24, 
+    paddingVertical: 12, 
+    marginTop: 16, 
+    borderRadius: 16
+  }
+})

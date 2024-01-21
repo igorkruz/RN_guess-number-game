@@ -1,22 +1,13 @@
 import { FC, useEffect, useState } from "react";
-import { View, Text, StyleSheet, Alert } from "react-native"
+import { View, Text, StyleSheet, Alert } from "react-native";
+import { Ionicons } from '@expo/vector-icons';
+
 import { PrimaryButtont } from "../UI/PrimaryButton";
-
-import { Ionicons } from '@expo/vector-icons'
-
-const generateRandomNumber = (min: number, max: number, exclude: number): any => {
-  const rndNumber = Math.floor(Math.random() * (max - min) + min)
-
-  if (rndNumber === exclude) {
-    return generateRandomNumber(min, max, exclude);
-  } else {
-    return rndNumber
-  }
-}
+import { generateRandomNumber } from "../utils/functionsHelpers";
 
 interface Props {
   userNumber: number | null;
-  onGameOver: () => void
+  onGameOver: () => void;
 }
 
 let minBoundary = 1;

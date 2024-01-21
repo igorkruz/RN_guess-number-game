@@ -1,26 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, ImageBackground, SafeAreaView } from 'react-native';
-import { StartGameScreen } from './screens/StartGameScreen';
-import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from 'react';
+import { StyleSheet, ImageBackground, SafeAreaView } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+
 import { GameScreen } from './screens/GameScreen';
 import { GameOverScreen } from './screens/GameOverScreen';
+import { StartGameScreen } from './screens/StartGameScreen';
 
 export default function App() {
   const [usersNumber, setUsersNumber] = useState<number | null>(null);
-  const [gameIsOver, setGameIsOver] = useState(false)
+  const [gameIsOver, setGameIsOver] = useState(false);
 
   const pickeNumberHandler = (number: number| null) => {
-    setUsersNumber(number)
+    setUsersNumber(number);
   }
 
   const handleGameOver = () => {
-    setGameIsOver(true)
+    setGameIsOver(true);
   }
 
   const handleRestartGame = () => {
     setUsersNumber(null);
-    setGameIsOver(false)
+    setGameIsOver(false);
   }
 
   let screen = <StartGameScreen onPickNumber={pickeNumberHandler} />
@@ -52,7 +52,6 @@ export default function App() {
 const styles = StyleSheet.create({
   rootScreen: {
     flex: 1,
-    // backgroundColor: '#ddb53f'
   },
   backgrouImage: {
     opacity :0.15
